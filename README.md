@@ -1,14 +1,38 @@
 Scrummo Burn Up Charts
 =======================
 
-The best project ever.
+####Scrummo adds Agile points estimation to Trello
 
-Your project summary here
+Points (or "story points") are used for estimation in agile methodologies such as Scrum. We made Scrummo because we wanted a points plugin that works a little differently to others that are available.
 
-Documentation
--------------
+####Chrome Plugin
 
-Your project-specific documentation here
+Scrummo has a Chrome extension available in the Chrome Webstore. Installation is about as easy as it gets.
+
+Download it here and start estimating!
+https://chrome.google.com/webstore/detail/blocgblopglhhmdeeafpljaameimgega/
+
+#####Notes:
+* When you add points to the card, Scrummo puts the points into a comment so that they have a date association
+* You can make a burn up chart for your project at http://scrummo.io, or by forking this repo, and running it locally.
+
+
+####Credits
+Scrummo was developed by The Monkeys:
+
+    Peter Vahaviolos - https://github.com/taledo
+    Chris Langlands - https://github.com/hooch
+    Kynan Hughes - https://github.com/k7n4n5t3w4rt
+    Petra Gulicher - https://github.com/petronbot
+    Han Lee - https://github.com/hanl
+    Philip Pondijo - https://github.com/phipon
+
+We use it for all our projects, some of which can be seen on http://themonkeys.com.au.
+
+####GitHub
+
+Plz fork it on GitHub and submit a pull request with your suggested improvements - https://github.com/TheMonkeys/Scrummo-Browser-Plugin
+
 
 Requirements
 ------------
