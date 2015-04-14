@@ -1,0 +1,39 @@
+{
+  "name": "Scrummo-Burn-Up-Charts",
+  "description": "Scrummo Burn Up Charts: The best project ever.",
+  "version": "0.1.0",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/TheMonkeys/Scrummo-Burn-Up-Charts.git"
+  },
+  "engines": {
+    "node": ">= 0.8.0"
+  },
+  "scripts": {
+    "test": "grunt test"
+  },
+  "devDependencies": {
+    "grunt-contrib-jshint": "latest",
+    "grunt-contrib-concat": "latest",
+    "grunt-contrib-nodeunit": "latest",
+    "grunt-contrib-requirejs": "latest",
+    "grunt-contrib-uglify": "latest",
+    "grunt-contrib-watch": "latest",
+    "grunt-contrib-clean": "latest",
+    "grunt-contrib-copy": "latest",
+    "grunt-contrib-compass": "latest",
+    "grunt-contrib-connect": "latest",
+    "grunt-monkeytestjs": "latest",
+    "grunt-dox": "latest",
+    "grunt-jsbeautifier": "latest",
+    "nodemock": "latest",
+    "backbone": "latest",
+    "underscore": "latest",
+    "jquery": "latest",
+    "requirejs": "latest",
+    "grunt-phpunit": "latest",
+    "grunt-phpdocumentor": "git://github.com/gomoob/grunt-phpdocumentor.git",
+    "grunt-reload": "git://github.com/webxl/grunt-reload.git",
+    "grunt": "~0.4.0"
+  }
+}

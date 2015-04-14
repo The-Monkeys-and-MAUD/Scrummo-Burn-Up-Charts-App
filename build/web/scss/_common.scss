@@ -1,0 +1,45 @@
+
+html, body { margin:0; padding:0; }
+
+* {
+	-webkit-transition:0.3s ease all;
+	-moz-transition:0.3s ease all;
+	-ms-transition:0.3s ease all;
+	-o-transition:0.3s ease all;
+	transition:0.3s ease all;
+}
+
+
+.ribbon {
+  //background-color: $blue8;
+  @include background-image(linear-gradient(to bottom right, $blue4, $blue16));
+  overflow: hidden;
+  white-space: nowrap;
+  /* top left corner */
+  position: absolute;
+  right: -70px;
+  top: 40px;
+
+  @include rotate(30deg);
+  @include backface-visibility(hidden);
+
+  @media screen and (max-width: $break-tablet-min-width) {
+  	display: none;
+  }
+
+  &:hover {
+  	opacity:0.85;
+  }
+
+	a {
+		color: $white;
+		display: block;
+		margin: 1px 0;
+		padding: 10px 80px;
+		text-align: center;
+		text-decoration: none;
+		text-shadow: 0 0 5px $blue32;
+		font-size:15px;
+
+	}
+}

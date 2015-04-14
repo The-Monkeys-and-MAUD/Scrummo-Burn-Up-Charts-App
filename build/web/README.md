@@ -1,0 +1,2 @@
+This is the source folder for all front-end components of the site. The grunt build (see the project's main README
+ for more details) processes files in this folder into ../public/, which is the folder served by the web server.

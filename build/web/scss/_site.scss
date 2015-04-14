@@ -1,0 +1,405 @@
+
+
+body { 
+	background-color: $lmGrey;
+	font-family:Arial;
+	overflow-x:hidden;
+
+	a {
+		color:$dGrey;
+	}
+}
+
+#main {
+	width:90%;
+	margin:30px auto;
+
+	h1 {
+		font-family: 'Slabo 27px', serif;
+		text-align: center;
+		color:$blue16;
+		font-size:4em;
+		margin:0;
+	}
+
+
+	#velocityAverage {
+		margin-bottom: 1em;
+		color:#A2CD5A;
+		padding:1em;
+		font-size:1.2em;
+		text-align: center;
+
+		strong {
+			color:#6E8B3D;
+		}
+
+	}
+
+
+	.content {
+		padding:30px;
+
+		&.info {
+			color:$mdGrey;
+			max-width:740px;
+			margin:0 auto;
+			text-align: left;
+			position:relative;
+			border-radius:5px;
+			padding:15px 20px;
+
+			h3 {
+				font-weight: normal;
+				font-size:1.4em;
+				color:$blue16;
+				text-align:center;
+				margin:0;
+			}
+			h4 {
+				color:$black;
+			}
+			ol, ul {
+
+				li {
+					margin-bottom: 10px;
+				}
+			}
+
+			&.open {
+				opacity:0.75;
+			}
+
+			.hide {
+				position:absolute;
+				top:0.4em;
+				right:1.8em;
+				color:$black;
+				font-size:1.6em;
+				display: block;
+				cursor: pointer;
+				color:$blue16;
+				font-family: 'FontAwesome';
+
+				&:before {
+					content: "\f068";
+					position:absolute;
+				}
+
+				&.open { 
+
+					&:before {
+						content: "\f067";
+					}
+				}
+
+			}
+		}
+
+		&.resources {
+			text-align: center;
+			margin-top: 20px;
+			background:rgba($blue0, 0.7);
+			h4 { margin-bottom:12px; }
+		}
+
+		&.intro {
+			margin-top: 60px;
+			background:rgba($white, 0.7);
+		}
+	}
+
+
+	#loading {
+		background:url(../images/loading.gif) top center no-repeat;
+		margin:0 auto;
+		display: none;
+		overflow:hidden;
+		font-size:12px;
+		color:#777;
+		text-align: center;
+		min-height: 64px;
+	}
+
+	/* User Inputs 
+	--------------------------- */
+
+	#initial {
+		min-height:220px;
+
+
+		.btn {
+			@include font-icons;
+			cursor: pointer;
+			padding:20px 40px;
+			border:none;
+			background-color:$blue0;
+			color:$blue32;
+			opacity:1;
+			display: block;
+			margin:0 auto 20px;
+			
+			&:before { margin-right:15px; }
+			&:hover { background-color:$blue1; }
+			&:disabled { @include disabled; }
+
+			//Inverse colors
+			&.btn-inverse {
+				background-color:$blue32;
+				color:$white;
+
+				&:before { color:$white; }
+				&:hover { background-color:$blue16; }
+				&:disabled { @include disabled; }
+			}
+
+			
+		}
+
+
+		/* Auth / Login */
+		#login {
+			text-align:center;
+			color: $blue16;
+			display: none;
+		}
+
+		/* Inputs & Form */
+		#form {
+			text-align: center;
+			display:none; //Will be shown with JS
+			max-width:800px;
+			margin:0 auto;
+
+			#note {
+				@include font-icons;
+				@include border-radius(10px);
+				color: $warnYellow;
+				background-color: #FEEFB3;
+				margin: 10px 0;
+				padding:10px;
+				font-size:14px;
+				opacity:0.7;
+				display: none;
+				
+				&:before {
+					content:"\f06a";
+					margin-right:15px;
+				}
+				
+			}
+
+			button {
+				&#generate {
+					margin-top:20px;
+				}
+			}
+
+			select,
+			input[type="text"] {
+
+				text-align: center;
+				margin:0 0 20px 0;
+				color:$mdGrey;
+				background-color:$white;
+				cursor: pointer;
+				font-size:16px;
+
+				&:hover {
+					background-color:$lGrey;
+				}
+			}
+
+			select {
+				background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='50px' height='50px'><polyline points='46.139,15.518 25.166,36.49 4.193,15.519'/></svg>");
+				background-repeat:no-repeat;
+				background-position: right 10px top 15px;
+				background-size: 16px 16px;
+				font-size:16px;
+				width:100%;
+				&.short {
+					width: 26%;
+					display: inline-block;
+					@media screen and (max-width: $break-tablet-max-width) { width:100%; }
+				}
+				@media screen and (max-width: $break-tablet-max-width) {
+					display:block; margin:0 0 10px 0;
+				}
+			}
+
+
+			.dates {
+				margin-bottom: 20px;
+				display:inline-block;
+				width:36%;
+				position:relative;
+				margin-right:1%;
+
+				@media screen and (max-width: $break-tablet-max-width) {
+					width:100%; display:block; margin:0 0 10px 0;
+				}
+
+				input[type="text"] { 
+					margin:0;
+					display: block;
+					width: 100%;
+
+					&:focus {
+						border-color:$blue8;
+					}
+				}
+
+				//Date icon
+				span {
+					position: absolute;
+					z-index: 10;
+					top:14px; right:14px;
+
+					&:before {
+						@include font-icons;
+						content: "\f073";
+						color:$blue16;
+					}
+				}
+				
+
+				//Date Picker, overrides
+				.picker__holder {
+					// max-width:48%;
+					// top:50px;
+				}
+
+			}
+			
+			
+
+			#comments { display:none; }
+		
+		}
+
+	}
+
+	/* Existing 
+	--------------------------- */
+	#existing {
+		display: none;
+	}
+
+
+	/* Results 
+	--------------------------- */
+
+	#results {
+
+		display:none; 
+		background-color:$white;
+
+		#graph {
+			margin-bottom: 30px;
+		}
+
+
+		table {
+			margin-bottom: 40px;
+			width:100%;
+			border-spacing: 2px;
+
+			tr {
+
+				cursor: pointer;
+
+				&:nth-child(even) {
+					background-color: $lGrey;
+				}
+
+				&:hover {
+					background-color:$lmGrey;
+				}
+
+				th {
+
+				}
+				td, th {
+					vertical-align: top;
+					padding:8px;
+					border-collapse:collapse;
+					text-align:center;
+					font-size:18px;
+				}
+
+				th {
+					&:first-child { text-align:left; }
+				}
+
+				td {
+					border-top:1px solid $mGrey;
+					line-height:20px;
+					width:28%;
+					position:relative;
+
+					span { 
+						width:20px;
+					    height:20px;
+					    @include border-radius(10px);
+					    font-size:15px;
+					    color:$white;
+					    line-height:20px;
+					    text-align:center;
+					    background:$mGrey;
+					    display:block;
+					    font-weight:bold;
+					    position:absolute;
+					    top:8px;right:8px;
+
+					    &:before {
+					    	content:"+"
+					    }
+
+					    &.open:before {
+					    	content: "-";
+					    }
+					}
+
+
+					&:first-child {
+						width:16%;
+						text-align: left;
+					}
+
+					ul {
+
+						padding:0;
+						margin:0 0 0 20px;
+						list-style-position: inside;
+						
+						display: none;
+
+						li {
+							font-size:14px;
+							font-weight: normal;
+							color: #777;
+						}
+						
+					}
+
+					
+				}
+			}
+		}
+		
+	}
+
+}
+
+.footer {
+	margin-top:70px;
+	text-align:center;
+
+	.logo {
+		display: block;
+		width:101px;
+		height:95px;
+		margin: 0 auto 20px;
+		background:url(../images/themonkeys_logo.png) 0 0 no-repeat;
+	}
+}

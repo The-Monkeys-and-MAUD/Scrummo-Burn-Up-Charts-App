@@ -1,0 +1,9 @@
+/* font definitions and web fonts */
+
+@mixin font-body {
+    font-family: arial, "helvetica nue", helvetica, san-serif;
+}  
+
+@mixin font-icons {
+    font-family: 'FontAwesome', FontAwesome, arial, "arial";
+}  

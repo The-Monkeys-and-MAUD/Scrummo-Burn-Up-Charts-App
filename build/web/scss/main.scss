@@ -1,0 +1,28 @@
+/**
+ * This file compiles down into the single css file used by the site. Here we just include compass and the
+ * HTML5Boilerplate css template. The rest of our css is included at the appropriate place
+ */
+
+@import "compass";
+@import "normalize";
+@import "html5boilerplate";
+
+//Base Structure
+@import "variables";
+@import "sprite";
+@import "fonts";
+
+@import "common";
+@import "mixins";
+
+@import url('http://fonts.googleapis.com/css?family=Slabo+27px');
+
+//Libs
+@import "date";
+@import "fontawesome";
+
+//Site 
+@import "forms";
+@import "site";
+
+

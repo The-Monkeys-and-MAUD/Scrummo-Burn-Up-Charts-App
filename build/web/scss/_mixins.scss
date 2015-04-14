@@ -1,0 +1,29 @@
+@mixin tweet-quote($string) {
+	content: $string;
+	font-size: 60px;
+	top: 15px;
+	color: $blue;
+	position: relative;
+}
+
+@mixin resetForm {
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	border:0;
+	outline:0;
+	box-sizing: border-box;
+}
+
+@mixin border-radius($pixels: 5px) {
+	border-radius:$pixels;
+	-webkit-border-radius:$pixels;
+	-moz-border-radius:$pixels;
+	-o-border-radius:$pixels;
+}
+
+@mixin disabled {
+	opacity:0.5;
+	background-color:$mGrey;
+	color:$mdGrey;
+	cursor: default;
+}
