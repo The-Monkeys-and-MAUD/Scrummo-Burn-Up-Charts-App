@@ -16,7 +16,7 @@
        <div id="main">
 
             <div class="ribbon">
-                <a href="http://google.com" target="_blank">Get the Chrome Extension</a>
+                <a href="https://chrome.google.com/webstore/detail/scrummo/blocgblopglhhmdeeafpljaameimgega" target="_blank">Get the Chrome Extension</a>
             </div>
 
             <h1>Scrummo</h1>
@@ -76,7 +76,7 @@
                 <div id="tableData">{{-- Table Data --}}</div>
             </div>
 
-              <div class="content intro info" data-info="intro">
+            <div class="content intro info" data-info="intro">
                 <h3>How To Use Scrummo</h3>
                 <div class="details">
                     <ol>
@@ -93,15 +93,13 @@
                 <h3>Resources</h3>
                 <div class="details">
                     <h4>For questions &amp; issues related to Scrummo Burn Up Charts</h4>
-                    <a href="https://github.com/TheMonkeys/Scrummo-Burn-Up-Charts" target="_blank">https://github.com/TheMonkeys/Scrummo-Burn-Up-Charts</a>
-
+                    <a href="https://github.com/TheMonkeys/Scrummo-Burn-Up-Charts-App/" target="_blank">https://github.com/TheMonkeys/Scrummo-Burn-Up-Charts-App/</a>
                     <h4>For questions &amp; issues related to Scrummo Chrome Extension</h4>
                     <a href="https://github.com/TheMonkeys/Scrummo-Browser-Plugin" target="_blank">https://github.com/TheMonkeys/Scrummo-Browser-Plugin</a>
-
                     <h4>To request a feature</h4>
                     <a href="https://trello.com/b/dG67P1gb/3dm1528-scrummo" target="_blank">https://trello.com/b/dG67P1gb/3dm1528-scrummo</a>
-                </div>
-                 <span class="hide"></span>
+                </div> 
+                <span class="hide"></span>
             </div>
 
             <div class="footer">

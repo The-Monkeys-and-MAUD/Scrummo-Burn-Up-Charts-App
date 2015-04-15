@@ -16,7 +16,6 @@ https://chrome.google.com/webstore/detail/blocgblopglhhmdeeafpljaameimgega/
 * When you add points to the card, Scrummo puts the points into a comment so that they have a date association
 * You can make a burn up chart for your project at http://scrummo.io, or by forking this repo, and running it locally.
 
-
 ####Credits
 Scrummo was developed by The Monkeys:
 
