@@ -481,7 +481,7 @@ define(['jquery', 'lodash', 'moment', 'twix', 'highcharts', 'app/Charts', 'app/D
                             date = moment(largestValueComment.commentDate).format('DD-MM-YYYY'),
                             //isDoneDate = (!isEmpty) ? doneCard.commentDate : null,
                             //date = largestValueComment.commentDate,
-                            points = parseInt(largestValueComment.commentText),
+                            points = parseFloat(largestValueComment.commentText),
                             cardTitle = cardName.replace(/\((.*\) )/g, '');
 
                         //If there are no points on the card, but it's still flagged as "DONE", 
@@ -531,7 +531,7 @@ define(['jquery', 'lodash', 'moment', 'twix', 'highcharts', 'app/Charts', 'app/D
 
             var fromDate = moment(o.fromDate, "DD-MM-YYYY"),
                 toDate = moment(o.toDate, "DD-MM-YYYY"),
-                storedDuration = parseInt(o.duration),
+                storedDuration = parseFloat(o.duration),
                 diff = Math.abs(fromDate.diff(toDate, 'days')),
                 duration = (storedDuration && diff >= storedDuration) ? storedDuration : 1;
 
@@ -588,7 +588,7 @@ define(['jquery', 'lodash', 'moment', 'twix', 'highcharts', 'app/Charts', 'app/D
 
                 //If greater than 1 day, use the terminology "Spring X" instead of the date.
 
-                xAxisValue = (parseInt(o.duration) > 1) ? "Sprint #" + itemCount : moment(range[j], "DD-MM-YYYY").format("DD MMM YYYY");
+                xAxisValue = (parseFloat(o.duration) > 1) ? "Sprint #" + itemCount : moment(range[j], "DD-MM-YYYY").format("DD MMM YYYY");
 
                 tableHTML += '<tr id="' + range[j] + '">' +
                     '<td>' + xAxisValue + '</td>' +
@@ -712,7 +712,7 @@ define(['jquery', 'lodash', 'moment', 'twix', 'highcharts', 'app/Charts', 'app/D
                 totalVelocitySprints = $("td.velocity").length - 1;
 
             $("td.done").each(function (i) {
-                var done = parseInt($(this).data("count-done"));
+                var done = parseFloat($(this).data("count-done"));
                 if (i > 0) {
                     sprintVelocity = done - prev;
                     totalVelocity += sprintVelocity;
@@ -797,7 +797,7 @@ define(['jquery', 'lodash', 'moment', 'twix', 'highcharts', 'app/Charts', 'app/D
                     points = $(this).find("li");
 
                 points.each(function () {
-                    count += parseInt($(this).data("points"));
+                    count += parseFloat($(this).data("points"));
                 });
 
                 culmativeCount += count;
@@ -871,7 +871,7 @@ define(['jquery', 'lodash', 'moment', 'twix', 'highcharts', 'app/Charts', 'app/D
         **/
         extractLargestCommentValue: function (comments) {
             var commentValue = _.max(comments, function (comment) {
-                return parseInt(comment.commentText);
+                return parseFloat(comment.commentText);
             });
             return commentValue;
 
