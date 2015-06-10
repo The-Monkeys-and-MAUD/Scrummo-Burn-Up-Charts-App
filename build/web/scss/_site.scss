@@ -119,6 +119,21 @@ body {
 		color:#777;
 		text-align: center;
 		min-height: 64px;
+		padding-top:64px;
+		
+		#loadingMessage { 
+			margin:0; padding:0; 
+			display:none;
+
+			span {
+				font-weight:bold;
+				color:$blue16;
+				&#cardsRemaining { color: $blue16;}
+				&#cardsTotal { color: $blue32;}
+			}
+		}
+
+		
 	}
 
 	/* User Inputs 

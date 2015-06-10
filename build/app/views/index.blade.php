@@ -66,7 +66,9 @@
                 </div>
             </div>
             
-            <div id="loading"></div>
+            <div id="loading">
+                <p id="loadingMessage">Reading Cards: <span id="cardsRemaining"></span> / <span id="cardsTotal"></span></p>
+            </div>
 
             {{-- Results & Data View --}}
 
