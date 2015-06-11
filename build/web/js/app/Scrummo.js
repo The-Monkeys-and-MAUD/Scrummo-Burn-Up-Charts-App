@@ -417,9 +417,9 @@ define(['jquery', 'lodash', 'moment', 'twix', 'highcharts', 'app/Charts', 'app/D
                             comments: {}
                         };  
 
-                        clearInterval(o.cardFetchInterval);
+                        // clearTimeout(o.cardFetchTimeout);
 
-                        o.cardFetchInterval = setInterval(function() {
+                        o.cardFetchTimeout = setTimeout( function() {
 
                             window.Trello.get("cards/" + id + "/actions?filter=commentCard", function (comment) {
 
