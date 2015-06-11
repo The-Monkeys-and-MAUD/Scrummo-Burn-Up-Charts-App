@@ -22,7 +22,10 @@ define(['jquery', 'lodash', 'moment', 'twix', 'highcharts', 'app/Charts', 'app/D
         graph: $("#graph"),
         datesTableID: "#datesTable",
         hideButton: $(".hide"),
-        info: $(".info")
+        info: $(".info"),
+        loadingMessage: $("#loadingMessage"),
+        cardsRemaining: $("#cardsRemaining"),
+        cardsTotal: $("#cardsTotal")
     };
 
     var o = {
@@ -42,6 +45,7 @@ define(['jquery', 'lodash', 'moment', 'twix', 'highcharts', 'app/Charts', 'app/D
         doneSoFar: 0,
         estimatedSoFar: 0,
         duration: null,
+        cardFetchInterval:null,
         skipSave: false //Only set to true if page is loaded with an existing URL!
     };
 
@@ -377,7 +381,10 @@ define(['jquery', 'lodash', 'moment', 'twix', 'highcharts', 'app/Charts', 'app/D
                     });
                 });
                 //On Success, get comments
+                
                 _this.getTrelloCardComments(cardData);
+
+
             });
         },
 
@@ -396,45 +403,65 @@ define(['jquery', 'lodash', 'moment', 'twix', 'highcharts', 'app/Charts', 'app/D
 
             if (cards && cards.length > 1) {
 
-                $.each(cards, function (i) {
-                    var id = cards[i].id;
 
-                    cardComments[id] = {
-                        id: id,
-                        name: cards[i].name,
-                        comments: {}
-                    };
+                 el.loadingMessage.fadeIn();
+                 el.cardsRemaining.empty();
+                 el.cardsTotal.html(cards.length);
 
-                    window.Trello.get("cards/" + id + "/actions?filter=commentCard", function (comment) {
+                    $.each(cards, function (i) {
+                        var id = cards[i].id;
 
-                        loopCount++;
+                        cardComments[id] = {
+                            id: id,
+                            name: cards[i].name,
+                            comments: {}
+                        };  
 
-                        //Do we even have comments?
-                        if (comment.length > 0) {
-                            for (var b = 0; b < comment.length; b++) {
+                        // clearTimeout(o.cardFetchTimeout);
 
-                                //Do the comments match our Scummo schema?
-                                if (comment[b].data.text.indexOf("[[") !== -1 && comment[b].data.text.indexOf("]]") !== -1) {
+                        o.cardFetchTimeout = setTimeout( function() {
 
-                                    //Store comment data in an object literal
-                                    cardComments[id]['comments'][comment[b].id] = {
-                                        commentText: _this.cleanComment(comment[b].data.text),
-                                        commentDate: comment[b].date
-                                    };
-                                } else {}
-                            }
-                        } else {
-                            // el.loading.hide();
-                        }
+                            window.Trello.get("cards/" + id + "/actions?filter=commentCard", function (comment) {
 
-                        //Check if all our calls are complete, then do something with the data...
-                        if (loopCount === cards.length) {
-                            _this.parseAndStoreCardData(cardComments);
-                        }
+                                loopCount++;
+
+                                //Do we even have comments?
+                                if (comment.length > 0) {
+                                    for (var b = 0; b < comment.length; b++) {
+
+                                        //Do the comments match our Scummo schema?
+                                        if (comment[b].data.text.indexOf("[[") !== -1 && comment[b].data.text.indexOf("]]") !== -1) {
+
+                                            el.cardsRemaining.html(loopCount);
+
+                                            //Store comment data in an object literal
+                                            cardComments[id]['comments'][comment[b].id] = {
+                                                commentText: _this.cleanComment(comment[b].data.text),
+                                                commentDate: comment[b].date
+                                            };
+                                        } else {}
+                                    }
+                                } else {
+                                    // el.loading.hide();
+                                }
+
+                                //Check if all our calls are complete, then do something with the data...
+                                if (loopCount === cards.length) {
+                                    el.loadingMessage.hide();
+                                    _this.parseAndStoreCardData(cardComments);
+                                }
+
+                            });
+
+                        }, 250);
 
                     });
+        
 
-                });
+
+
+
+
 
             }
 
@@ -449,6 +476,8 @@ define(['jquery', 'lodash', 'moment', 'twix', 'highcharts', 'app/Charts', 'app/D
         parseAndStoreCardData: function (cardComments) {
 
             el.submitButton.removeAttr("disabled", "disabled");
+
+            clearInterval(o.cardFetchInterval);
 
             var cards = cardComments;
             for (var key in cards) {
