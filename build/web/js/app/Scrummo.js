@@ -55,6 +55,9 @@ define(['jquery', 'lodash', 'moment', 'twix', 'highcharts', 'app/Charts', 'app/D
 
     var Scrummo = {
 
+        cards: {},
+        cardComments: {},
+
         // ------------------------
         // Methods
         // ------------------------
@@ -380,11 +383,11 @@ define(['jquery', 'lodash', 'moment', 'twix', 'highcharts', 'app/Charts', 'app/D
                         name: card.name
                     });
                 });
-                //On Success, get comments
-                
-                _this.getTrelloCardComments(cardData);
 
+                _this.cards = cardData;
 
+                // Get comments
+                _this.queueTrelloCardsForComments();
             });
         },
 
@@ -394,78 +397,71 @@ define(['jquery', 'lodash', 'moment', 'twix', 'highcharts', 'app/Charts', 'app/D
             @id | string | Card Id
             @cardObj | object | Card Object
         **/
-        getTrelloCardComments: function (cardData) {
+        queueTrelloCardsForComments: function () {
 
-            var cards = cardData,
-                _this = this,
-                cardComments = {},
-                loopCount = 0;
+            var _this = this,
+                i = 0;
 
-            if (cards && cards.length > 1) {
+            if (_this.cards && _this.cards.length > 1) {
 
+                el.loadingMessage.fadeIn();
+                el.cardsRemaining.empty();
+                el.cardsTotal.html(_this.cards.length);
 
-                 el.loadingMessage.fadeIn();
-                 el.cardsRemaining.empty();
-                 el.cardsTotal.html(cards.length);
-
-                    $.each(cards, function (i) {
-                        var id = cards[i].id;
-
-                        cardComments[id] = {
-                            id: id,
-                            name: cards[i].name,
-                            comments: {}
-                        };  
-
-                        // clearTimeout(o.cardFetchTimeout);
-
-                        o.cardFetchTimeout = setTimeout( function() {
-
-                            window.Trello.get("cards/" + id + "/actions?filter=commentCard", function (comment) {
-
-                                loopCount++;
-
-                                //Do we even have comments?
-                                if (comment.length > 0) {
-                                    for (var b = 0; b < comment.length; b++) {
-
-                                        //Do the comments match our Scummo schema?
-                                        if (comment[b].data.text.indexOf("[[") !== -1 && comment[b].data.text.indexOf("]]") !== -1) {
-
-                                            el.cardsRemaining.html(loopCount);
-
-                                            //Store comment data in an object literal
-                                            cardComments[id]['comments'][comment[b].id] = {
-                                                commentText: _this.cleanComment(comment[b].data.text),
-                                                commentDate: comment[b].date
-                                            };
-                                        } else {}
-                                    }
-                                } else {
-                                    // el.loading.hide();
-                                }
-
-                                //Check if all our calls are complete, then do something with the data...
-                                if (loopCount === cards.length) {
-                                    el.loadingMessage.hide();
-                                    _this.parseAndStoreCardData(cardComments);
-                                }
-
-                            });
-
-                        }, 250);
-
-                    });
-        
-
-
-
-
-
-
+                _this.getTrelloCardComments(i);
             }
+        },
 
+        /*
+            Returns all comments from a card
+            @id | string | Card Id
+            @cardObj | object | Card Object
+        **/
+        getTrelloCardComments: function (i) {
 
+            var _this = this;
+            var id = _this.cards[i].id;
+
+            _this.cardComments[id] = {
+                id: id,
+                name: _this.cards[i].name,
+                comments: {}
+            };  
+
+            window.Trello.get("cards/" + id + "/actions?filter=commentCard", function (comment) {
+
+                //Do we even have comments?
+                if (comment.length > 0) {
+                    for (var b = 0; b < comment.length; b++) {
+
+                        //Do the comments match our Scummo schema?
+                        if (comment[b].data.text.indexOf("[[") !== -1 && comment[b].data.text.indexOf("]]") !== -1) {
+
+                            //Store comment data in an object literal
+                            _this.cardComments[id]['comments'][comment[b].id] = {
+                                commentText: _this.cleanComment(comment[b].data.text),
+                                commentDate: comment[b].date
+                            };
+                        } else {}
+                    }
+                } else {
+                    // el.loading.hide();
+                }
+
+                ++i;
+
+                if ( i < _this.cards.length )
+                {
+                    el.cardsRemaining.html(i);
+                    _this.getTrelloCardComments(i);
+                }
+                else 
+                {
+                    // We're done
+                    el.loadingMessage.hide();
+                    _this.parseAndStoreCardData();
+                }
+            });
         },
 
         /*
@@ -473,13 +469,15 @@ define(['jquery', 'lodash', 'moment', 'twix', 'highcharts', 'app/Charts', 'app/D
             NOTE: Will first ignore cards which are marked with an ignore value.
             @cardComments | object | Trello comment data
         **/
-        parseAndStoreCardData: function (cardComments) {
+        parseAndStoreCardData: function () {
+
+            var _this = this;
 
             el.submitButton.removeAttr("disabled", "disabled");
 
             clearInterval(o.cardFetchInterval);
 
-            var cards = cardComments;
+            var cards = _this.cardComments;
             for (var key in cards) {
                 if (cards.hasOwnProperty(key)) {
 
@@ -530,11 +528,7 @@ define(['jquery', 'lodash', 'moment', 'twix', 'highcharts', 'app/Charts', 'app/D
                             "doneDate": isDoneDate,
                             "remaining": remaining
                         });
-
-
                     }
-
-
                 }
             }
 
