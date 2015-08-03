@@ -731,6 +731,7 @@ define(['jquery', 'lodash', 'moment', 'twix', 'highcharts', 'app/Charts', 'app/D
         calculateVelocity: function () {
             var prev = 0,
                 sprintVelocity = 0,
+                sprint0Velocity = 0,
                 totalVelocity = 0,
                 totalVelocitySprints = $("td.velocity").length - 1;
 
@@ -739,6 +740,11 @@ define(['jquery', 'lodash', 'moment', 'twix', 'highcharts', 'app/Charts', 'app/D
                 if (i > 0) {
                     sprintVelocity = done - prev;
                     totalVelocity += sprintVelocity;
+                } else {
+                    $(this).find("ul.done li").each(function (i) {
+                        sprint0Velocity = sprint0Velocity + parseFloat($(this).data("points"));
+                    });
+                    sprintVelocity = sprint0Velocity;
                 }
                 $(this).next("td.velocity").append(sprintVelocity);
                 prev = done;
