@@ -1,3 +1,5 @@
+![The Monkeys](http://www.themonkeys.com.au/img/monkey_logo.png)
+
 Scrummo Burn Up Charts
 =======================
 
