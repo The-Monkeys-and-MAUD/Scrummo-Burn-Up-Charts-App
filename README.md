@@ -1,5 +1,9 @@
+![The Monkeys](http://www.themonkeys.com.au/img/monkey_logo.png)
+
 Scrummo Burn Up Charts
 =======================
+
+[![Join the chat at https://gitter.im/TheMonkeys/Scrummo-Burn-Up-Charts-App](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/TheMonkeys/Scrummo-Burn-Up-Charts-App?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 ####Scrummo adds Agile points estimation to Trello
 
