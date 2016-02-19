@@ -45,7 +45,7 @@ define(['jquery', 'lodash', 'moment', 'twix', 'highcharts', 'app/Charts', 'app/D
         doneSoFar: 0,
         estimatedSoFar: 0,
         duration: null,
-        cardFetchInterval:null,
+        cardFetchInterval: null,
         skipSave: false //Only set to true if page is loaded with an existing URL!
     };
 
@@ -282,7 +282,7 @@ define(['jquery', 'lodash', 'moment', 'twix', 'highcharts', 'app/Charts', 'app/D
 
         },
 
-        /*  
+        /*
             Event handler to request cards from API
              @e: DOM Event
         **/
@@ -367,7 +367,7 @@ define(['jquery', 'lodash', 'moment', 'twix', 'highcharts', 'app/Charts', 'app/D
             }
         },
 
-        /* 
+        /*
             Returns all cards within a board
             @ID | string | Board ID
         **/
@@ -426,7 +426,7 @@ define(['jquery', 'lodash', 'moment', 'twix', 'highcharts', 'app/Charts', 'app/D
                 id: id,
                 name: _this.cards[i].name,
                 comments: {}
-            };  
+            };
 
             window.Trello.get("cards/" + id + "/actions?filter=commentCard", function (comment) {
 
@@ -450,13 +450,10 @@ define(['jquery', 'lodash', 'moment', 'twix', 'highcharts', 'app/Charts', 'app/D
 
                 ++i;
 
-                if ( i < _this.cards.length )
-                {
+                if (i < _this.cards.length) {
                     el.cardsRemaining.html(i);
                     _this.getTrelloCardComments(i);
-                }
-                else 
-                {
+                } else {
                     // We're done
                     el.loadingMessage.hide();
                     _this.parseAndStoreCardData();
@@ -494,7 +491,7 @@ define(['jquery', 'lodash', 'moment', 'twix', 'highcharts', 'app/Charts', 'app/D
 
                     if (ignoreCard) {
 
-                        // Get the largest number, for a card, and treat it 
+                        // Get the largest number, for a card, and treat it
                         // as the estimate, irrespective of the date.
 
                         var largestValueComment = this.extractLargestCommentValue(comments),
@@ -511,7 +508,7 @@ define(['jquery', 'lodash', 'moment', 'twix', 'highcharts', 'app/Charts', 'app/D
                             points = parseFloat(largestValueComment.commentText),
                             cardTitle = cardName.replace(/\((.*\) )/g, '');
 
-                        //If there are no points on the card, but it's still flagged as "DONE", 
+                        //If there are no points on the card, but it's still flagged as "DONE",
                         // set it to ZERO, so it adds no value
                         if (!points) {
                             points = 0;
@@ -587,7 +584,7 @@ define(['jquery', 'lodash', 'moment', 'twix', 'highcharts', 'app/Charts', 'app/D
                 );
             }
 
-            //Create Table & Rows            
+            //Create Table & Rows
             var tableHTML = '<table id="datesTable" class="highchart" data-graph-container="#graph" data-graph-type="line">' +
                 '<thead>' +
                 '<tr>' +
@@ -650,13 +647,13 @@ define(['jquery', 'lodash', 'moment', 'twix', 'highcharts', 'app/Charts', 'app/D
             $(el.datesTableID).clone().addClass("cloned").appendTo("#tableData");
             $(el.datesTableID).find("ul").remove();
 
-            // ----------------- 
+            // -----------------
             // Make a Graph - See app/Charts.js
 
             var table = $(el.datesTableID).get(0);
             Charts.makeChart(table, 'spline', o.boardName);
 
-            // ----------------- 
+            // -----------------
 
 
             //Remove table which generated the chart
@@ -821,9 +818,19 @@ define(['jquery', 'lodash', 'moment', 'twix', 'highcharts', 'app/Charts', 'app/D
 
             var culmativeCount = (soFar && typeof soFar === "number") ? soFar : 0;
 
-            $("#datesTable ul." + type).each(function () {
+            var length = $("#datesTable ul." + type).length;
+
+            $("#datesTable ul." + type).each(function (index) {
+
                 var count = 0,
                     points = $(this).find("li");
+
+
+                if (index === length - 1) {
+
+                    console.log('Last element. culmativeCount == ' + culmativeCount);
+
+                }
 
                 points.each(function () {
                     count += parseFloat($(this).data("points"));
@@ -933,14 +940,14 @@ define(['jquery', 'lodash', 'moment', 'twix', 'highcharts', 'app/Charts', 'app/D
         /*
             HELPER: Return an array of ESTIMATED cards which fit inside the range
             @data | object | The array to filter
-            @unixMin | string | Unix time stamp 
-            @unixMax | string | Unix time stamp 
+            @unixMin | string | Unix time stamp
+            @unixMax | string | Unix time stamp
         **/
 
         getEstimatedCardsInRange: function (data, unixMin, unixMax) {
             var estimated = _.filter(data, function (card) {
                 var unixCardDate = moment(card.date, "DD-MM-YYYY").unix();
-                return unixCardDate >= unixMin && unixCardDate < unixMax;
+                return unixCardDate >= unixMin && unixCardDate <= unixMax;
             });
             return estimated;
         },
@@ -948,14 +955,14 @@ define(['jquery', 'lodash', 'moment', 'twix', 'highcharts', 'app/Charts', 'app/D
         /*
             HELPER: Return an array of DONE cards which fit inside the range
             @data | object | The array to filter
-            @unixMin | string | Unix time stamp 
-            @unixMax | string | Unix time stamp 
+            @unixMin | string | Unix time stamp
+            @unixMax | string | Unix time stamp
         **/
 
         getDoneCardsInRange: function (data, unixMin, unixMax) {
             var done = _.filter(data, function (card) {
                 var unixCardDate = moment(card.doneDate, "DD-MM-YYYY").unix();
-                return card.doneDate && unixCardDate >= unixMin && unixCardDate < unixMax;
+                return card.doneDate && unixCardDate >= unixMin && unixCardDate <= unixMax;
             });
 
             return done;
@@ -975,7 +982,7 @@ define(['jquery', 'lodash', 'moment', 'twix', 'highcharts', 'app/Charts', 'app/D
             el.tableData.empty();
             el.graph.empty();
 
-            //Reset Data 
+            //Reset Data
             o.allCards = [];
             o.estimatedSoFar = 0;
             o.doneSoFar = 0;
