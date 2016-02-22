@@ -818,19 +818,10 @@ define(['jquery', 'lodash', 'moment', 'twix', 'highcharts', 'app/Charts', 'app/D
 
             var culmativeCount = (soFar && typeof soFar === "number") ? soFar : 0;
 
-            var length = $("#datesTable ul." + type).length;
-
             $("#datesTable ul." + type).each(function (index) {
 
                 var count = 0,
                     points = $(this).find("li");
-
-
-                if (index === length - 1) {
-
-                    console.log('Last element. culmativeCount == ' + culmativeCount);
-
-                }
 
                 points.each(function () {
                     count += parseFloat($(this).data("points"));
