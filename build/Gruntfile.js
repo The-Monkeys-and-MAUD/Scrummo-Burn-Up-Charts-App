@@ -120,12 +120,6 @@ module.exports = function (grunt) {
         //port: '8888'
       }
     },
-    dox: {
-      libdocs: {
-        src: ['<%= jshint.lib_test.src %>', 'web/test/**/*.js'],
-        dest: 'doc/javascript'
-      }
-    },
     phpdocumentor: {
       dist: {
         directory: ['app'],
@@ -239,8 +233,8 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-phpunit');
 
   // documentation generation
-  grunt.loadNpmTasks('grunt-dox');
-  grunt.loadNpmTasks('grunt-phpdocumentor');
+  // grunt.loadNpmTasks('grunt-dox');
+  // grunt.loadNpmTasks('grunt-phpdocumentor');
 
   // watch tasks
   grunt.registerTask('dev', ['reload', 'watch:all']);
@@ -248,7 +242,7 @@ module.exports = function (grunt) {
   grunt.registerTask('dev:js', ['reload', 'watch:js']);
 
   // generate all docs
-  grunt.registerTask('docs', ['dox']); // add 'phpdocumentor' after 'dox' here if using php
+  // grunt.registerTask('docs', ['dox']); // add 'phpdocumentor' after 'dox' here if using php
 
   // Default task.
   grunt.registerTask('default', ['jshint', 'jsbeautifier', 'clean', 'requirejs:prod', 'compass:prod']);

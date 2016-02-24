@@ -111,8 +111,8 @@ function build() {
     grunt 
 
     # generate documentation
-    echo "Generating documentation.."
-    grunt docs
+    # echo "Generating documentation.."
+    # grunt docs
 
     cd ${OLDPWD}
 }
