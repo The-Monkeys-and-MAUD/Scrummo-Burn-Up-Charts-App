@@ -818,7 +818,7 @@ define(['jquery', 'lodash', 'moment', 'twix', 'highcharts', 'app/Charts', 'app/D
 
             var culmativeCount = (soFar && typeof soFar === "number") ? soFar : 0;
 
-            $("#datesTable ul." + type).each(function (index) {
+            $("#datesTable ul." + type).each(function () {
 
                 var count = 0,
                     points = $(this).find("li");
